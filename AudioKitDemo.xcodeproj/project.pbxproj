@@ -14,6 +14,7 @@
 		103A5C001FE6093A002AE5DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103A5BFE1FE6093A002AE5DE /* LaunchScreen.storyboard */; };
 		EF3746D41FEA2B9D00467067 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3746D31FEA2B9D00467067 /* AudioKit.framework */; };
 		EF3746D51FEA2B9D00467067 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF3746D31FEA2B9D00467067 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EF3746D91FEA6B7E00467067 /* RecordingTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3746D81FEA6B7E00467067 /* RecordingTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		103A5BFF1FE6093A002AE5DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		103A5C011FE6093A002AE5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF3746D31FEA2B9D00467067 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		EF3746D81FEA6B7E00467067 /* RecordingTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 		103A5BF41FE6093A002AE5DE /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				EF3746D71FEA6B5400467067 /* Views */,
 				103A5BF51FE6093A002AE5DE /* AppDelegate.swift */,
 				103A5BF71FE6093A002AE5DE /* ViewController.swift */,
 				103A5BF91FE6093A002AE5DE /* Main.storyboard */,
@@ -81,6 +84,14 @@
 				103A5C011FE6093A002AE5DE /* Info.plist */,
 			);
 			path = AudioKitDemo;
+			sourceTree = "<group>";
+		};
+		EF3746D71FEA6B5400467067 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EF3746D81FEA6B7E00467067 /* RecordingTableCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF3746D91FEA6B7E00467067 /* RecordingTableCell.swift in Sources */,
 				103A5BF81FE6093A002AE5DE /* ViewController.swift in Sources */,
 				103A5BF61FE6093A002AE5DE /* AppDelegate.swift in Sources */,
 			);

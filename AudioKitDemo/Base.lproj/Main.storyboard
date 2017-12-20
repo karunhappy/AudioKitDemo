@@ -193,6 +193,22 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfn-kc-mbw">
                                         <rect key="frame" x="20" y="0.0" width="335" height="107"/>
                                         <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="43a-tC-Gbz">
+                                                <rect key="frame" x="20" y="38" width="295" height="29"/>
+                                                <color key="backgroundColor" red="0.24427443739999999" green="0.99944180250000003" blue="0.86071795230000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <segments>
+                                                    <segment title="C#"/>
+                                                    <segment title="D#"/>
+                                                    <segment title=""/>
+                                                    <segment title="F#"/>
+                                                    <segment title="G#"/>
+                                                    <segment title="A#"/>
+                                                </segments>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <action selector="segmentTopAction:" destination="aul-2m-P5S" eventType="valueChanged" id="n5J-lp-CfZ"/>
+                                                </connections>
+                                            </segmentedControl>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="TrE-eJ-JVJ">
                                                 <rect key="frame" x="0.0" y="71" width="335" height="29"/>
                                                 <color key="backgroundColor" red="0.24427443742752075" green="0.99944180250167847" blue="0.86071795225143433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -209,22 +225,6 @@
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <action selector="segmentBottomAction:" destination="aul-2m-P5S" eventType="valueChanged" id="e0d-Ba-f4e"/>
-                                                </connections>
-                                            </segmentedControl>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="43a-tC-Gbz">
-                                                <rect key="frame" x="20" y="38" width="295" height="29"/>
-                                                <color key="backgroundColor" red="0.24427443739999999" green="0.99944180250000003" blue="0.86071795230000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <segments>
-                                                    <segment title="C#"/>
-                                                    <segment title="D#"/>
-                                                    <segment title=""/>
-                                                    <segment title="F#"/>
-                                                    <segment title="G#"/>
-                                                    <segment title="A#"/>
-                                                </segments>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <action selector="segmentTopAction:" destination="aul-2m-P5S" eventType="valueChanged" id="n5J-lp-CfZ"/>
                                                 </connections>
                                             </segmentedControl>
                                         </subviews>
@@ -297,7 +297,7 @@
                                 <rect key="frame" x="0.0" y="267" width="375" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecordingTableCell" rowHeight="46" id="CKd-Xc-1dT">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecordingTableCell" rowHeight="46" id="CKd-Xc-1dT" customClass="RecordingTableCell" customModule="Mena_Test_Project" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CKd-Xc-1dT" id="YRr-Bv-Lm6">
@@ -313,6 +313,9 @@
                                                     <state key="normal" title="Play">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="btnPlayAction:" destination="CKd-Xc-1dT" eventType="touchUpInside" id="vG4-IT-ZQr"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio Recording 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAc-3r-sfP">
                                                     <rect key="frame" x="20" y="0.0" width="247" height="45.5"/>
@@ -331,6 +334,10 @@
                                                 <constraint firstItem="L3U-D3-NnH" firstAttribute="leading" secondItem="aAc-3r-sfP" secondAttribute="trailing" constant="8" symbolic="YES" id="pjd-bM-vJQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="btnPlay" destination="L3U-D3-NnH" id="zce-uf-kJ4"/>
+                                            <outlet property="labelRecording" destination="aAc-3r-sfP" id="H6L-l4-9xa"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
