@@ -12,7 +12,23 @@
 		103A5BFB1FE6093A002AE5DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103A5BF91FE6093A002AE5DE /* Main.storyboard */; };
 		103A5BFD1FE6093A002AE5DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 103A5BFC1FE6093A002AE5DE /* Assets.xcassets */; };
 		103A5C001FE6093A002AE5DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103A5BFE1FE6093A002AE5DE /* LaunchScreen.storyboard */; };
+		EF3746D41FEA2B9D00467067 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF3746D31FEA2B9D00467067 /* AudioKit.framework */; };
+		EF3746D51FEA2B9D00467067 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF3746D31FEA2B9D00467067 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EF3746D61FEA2B9D00467067 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EF3746D51FEA2B9D00467067 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		103A5BF21FE6093A002AE5DE /* Mena Test Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mena Test Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +38,7 @@
 		103A5BFC1FE6093A002AE5DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		103A5BFF1FE6093A002AE5DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		103A5C011FE6093A002AE5DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF3746D31FEA2B9D00467067 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF3746D41FEA2B9D00467067 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +56,7 @@
 		103A5BE91FE6093A002AE5DE = {
 			isa = PBXGroup;
 			children = (
+				EF3746D31FEA2B9D00467067 /* AudioKit.framework */,
 				103A5BF41FE6093A002AE5DE /* AudioKitDemo */,
 				103A5BF31FE6093A002AE5DE /* Products */,
 			);
@@ -74,6 +93,7 @@
 				103A5BEE1FE6093A002AE5DE /* Sources */,
 				103A5BEF1FE6093A002AE5DE /* Frameworks */,
 				103A5BF01FE6093A002AE5DE /* Resources */,
+				EF3746D61FEA2B9D00467067 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -277,7 +297,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Mena Test Project/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = AudioKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.modacity.Mena-Test-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -294,7 +319,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Mena Test Project/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = AudioKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.modacity.Mena-Test-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
