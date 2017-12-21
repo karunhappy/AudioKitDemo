@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     let mic = AKMicrophone()
     
     var recordingArray = [AKAudioFile]()
+    var recordingUrl = [URL]()
     
     var state = State.readyToRecord
     
@@ -43,6 +44,8 @@ class ViewController: UIViewController {
         case playing
         
     }
+    
+    var flagPlayRecording = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +64,7 @@ class ViewController: UIViewController {
     }
     
     func initialSetup() {
+        
         // Clean tempFiles !
         AKAudioFile.cleanTempDirectory()
         
@@ -77,7 +81,9 @@ class ViewController: UIViewController {
         
         // Patching
         //        inputPlot.node = mic
-        micMixer = AKMixer(mic)
+        if flagPlayRecording == false {
+            micMixer = AKMixer(mic)
+        }
         micBooster = AKBooster(micMixer)
         
         // Will set the level of microphone monitoring
@@ -97,6 +103,7 @@ class ViewController: UIViewController {
         AudioKit.start()
         
         setupUIForRecording()
+        flagPlayRecording = false
     }
     
     func playingEnded() {
@@ -106,15 +113,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnRecordAudioAction(_ sender: UIButton) {
-//        if sender.title(for: .normal) == RecordTitle.record.rawValue {
-//            sender.setTitle(RecordTitle.done.rawValue, for: .normal)
-//        } else {
-//            sender.setTitle(RecordTitle.record.rawValue, for: .normal)
-//        }
+
         switch state {
         case .readyToRecord :
-//            infoLabel.text = "Recording"
-//            mainButton.setTitle("Stop", for: .normal)
+            if flagPlayRecording {
+                self.initialSetup()
+            }
             sender.setTitle(RecordTitle.done.rawValue, for: .normal)
             state = .recording
             // microphone will be monitored while recording
@@ -136,11 +140,15 @@ class ViewController: UIViewController {
             let recordedDuration = player != nil ? player.audioFile.duration  : 0
             if recordedDuration > 0.0 {
                 recorder.stop()
+                
                 let audiofilename = "Recording-" + (self.recordingArray.count + 1).description + ".m4a"
                 player.audioFile.exportAsynchronously(name: audiofilename,
                                                       baseDir: .documents,
                                                       exportFormat: .m4a) { audiofile, exportError in
                                                         self.recordingArray.append(audiofile!)
+                                                        self.recordingUrl.append((audiofile?.url)!)
+                                                        print("recorded audios: ", self.recordingArray)
+                                                        print("recorded urls: ", self.recordingUrl)
                                                         self.tableViewRecordings.reloadData()
                                                         
                                                         self.reset()
@@ -150,50 +158,27 @@ class ViewController: UIViewController {
                                                             print("Export succeeded")
                                                         }
                 }
-//                player.stop()
-//                setupUIForPlaying ()
                 setupUIForRecording()
             }
         case .readyToPlay :
             break
-//            player.play()
-//            infoLabel.text = "Playing..."
-//            mainButton.setTitle("Stop", for: .normal)
-//            sender.setTitle(RecordTitle.done.rawValue, for: .normal)
-//            state = .playing
+
         case .playing :
             break
-//            player.stop()
-//            setupUIForPlaying()
+
         }
     }
     
     func setupUIForRecording () {
-//        player.stop()
-//        player.looping = false
-//        do {
-//            try recorder.reset()
-//        } catch { print("Errored resetting.") }
-        
         state = .readyToRecord
         btnRecordAudio.setTitle(RecordTitle.record.rawValue, for: .normal)
-//        resetButton.isEnabled = false
-//        resetButton.isHidden = true
         micBooster.gain = 0
-//        setSliders(active: false)
     }
     
     func setupUIForPlaying () {
-//        let recordedDuration = player != nil ? player.audioFile.duration  : 0
-//        infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration)) seconds"
-        
         btnRecordAudio.setTitle(RecordTitle.done.rawValue, for: .normal)
         state = .readyToPlay
-//        resetButton.isHidden = false
-//        resetButton.isEnabled = true
-//        setSliders(active: true)
-//        frequencySlider.value = moogLadder.cutoffFrequency
-//        resonanceSlider.value = moogLadder.resonance
+        
     }
     
     func reset() {
@@ -210,8 +195,6 @@ class ViewController: UIViewController {
     
     @IBAction func segmentBottomAction(_ sender: UISegmentedControl) {
         sender.selectedSegmentIndex = UISegmentedControlNoSegment
-//        sender.tintColor = UIColor.black
-//        (sender.subviews[sender.selectedSegmentIndex][0] as! UILabel).textColor = UIColor.black
     }
 }
 
@@ -236,7 +219,16 @@ extension ViewController: UITableViewDataSource {
     }
     
     @objc func playAudio(obj: Notification) {
-
+        let audio = obj.object as! Int
+        flagPlayRecording = true
+        do {
+            guard let file = try? AKAudioFile(forReading: self.recordingUrl[audio]) else { return }
+            print(file, file.standard)
+            let player = try AKAudioPlayer(file: (file))
+            AudioKit.output = player
+            AudioKit.start()
+            player.play()
+        } catch { print("error readiung file audio") }
     }
 }
 
