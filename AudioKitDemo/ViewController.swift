@@ -10,7 +10,7 @@ import UIKit
 import AudioKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var segmentTop: UISegmentedControl!
     @IBOutlet weak var segmentBottom: UISegmentedControl!
     @IBOutlet weak var tableViewRecordings: UITableView!
@@ -50,14 +50,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//    segmentBottom.removeBorders()
+        //    segmentBottom.removeBorders()
         
         self.initialSetup()
-//        setupUIForPlaying()
+        //        setupUIForPlaying()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.playAudio(obj:)), name: NSNotification.Name(rawValue: "PlayAudio"), object: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -113,12 +113,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnRecordAudioAction(_ sender: UIButton) {
-
+        //        if sender.title(for: .normal) == RecordTitle.record.rawValue {
+        //            sender.setTitle(RecordTitle.done.rawValue, for: .normal)
+        //        } else {
+        //            sender.setTitle(RecordTitle.record.rawValue, for: .normal)
+        //        }
         switch state {
         case .readyToRecord :
             if flagPlayRecording {
                 self.initialSetup()
             }
+            //            infoLabel.text = "Recording"
+            //            mainButton.setTitle("Stop", for: .normal)
             sender.setTitle(RecordTitle.done.rawValue, for: .normal)
             state = .recording
             // microphone will be monitored while recording
@@ -158,27 +164,50 @@ class ViewController: UIViewController {
                                                             print("Export succeeded")
                                                         }
                 }
+                //                player.stop()
+                //                setupUIForPlaying ()
                 setupUIForRecording()
             }
         case .readyToPlay :
             break
-
+            //            player.play()
+            //            infoLabel.text = "Playing..."
+            //            mainButton.setTitle("Stop", for: .normal)
+            //            sender.setTitle(RecordTitle.done.rawValue, for: .normal)
+        //            state = .playing
         case .playing :
             break
-
+            //            player.stop()
+            //            setupUIForPlaying()
         }
     }
     
     func setupUIForRecording () {
+        //        player.stop()
+        //        player.looping = false
+        //        do {
+        //            try recorder.reset()
+        //        } catch { print("Errored resetting.") }
+        
         state = .readyToRecord
         btnRecordAudio.setTitle(RecordTitle.record.rawValue, for: .normal)
+        //        resetButton.isEnabled = false
+        //        resetButton.isHidden = true
         micBooster.gain = 0
+        //        setSliders(active: false)
     }
     
     func setupUIForPlaying () {
+        //        let recordedDuration = player != nil ? player.audioFile.duration  : 0
+        //        infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration)) seconds"
+        
         btnRecordAudio.setTitle(RecordTitle.done.rawValue, for: .normal)
         state = .readyToPlay
-        
+        //        resetButton.isHidden = false
+        //        resetButton.isEnabled = true
+        //        setSliders(active: true)
+        //        frequencySlider.value = moogLadder.cutoffFrequency
+        //        resonanceSlider.value = moogLadder.resonance
     }
     
     func reset() {
@@ -195,6 +224,8 @@ class ViewController: UIViewController {
     
     @IBAction func segmentBottomAction(_ sender: UISegmentedControl) {
         sender.selectedSegmentIndex = UISegmentedControlNoSegment
+        //        sender.tintColor = UIColor.black
+        //        (sender.subviews[sender.selectedSegmentIndex][0] as! UILabel).textColor = UIColor.black
     }
 }
 
@@ -220,8 +251,25 @@ extension ViewController: UITableViewDataSource {
     
     @objc func playAudio(obj: Notification) {
         let audio = obj.object as! Int
+        //        do {
+        //            let p = try self.player.audioFile.appendedBy(file: self.recordingArray[audio])
+        //            p.player?.play()
+        //        } catch { print("Errored reloading.") }
+        
+        //        recorder = try? AKNodeRecorder(node: micMixer, file: self.recordingArray[audio])
+        //
+        //
+        //        if let file = recorder.audioFile {
+        //            player = try? AKAudioPlayer(file: file)
+        //        }
+        //        player.play()
         flagPlayRecording = true
+        //        AKAudioFile(readFileName: self.recordingArray[audio].fileName, baseDir: AKAudioFile.BaseDirectory.custom)
         do {
+            //            guard
+            
+            //            let file = try? AKAudioFile(readFileName: self.recordingArray[audio].fileName, baseDir: AKAudioFile.BaseDirectory.custom)
+            //            else { return }
             guard let file = try? AKAudioFile(forReading: self.recordingUrl[audio]) else { return }
             print(file, file.standard)
             let player = try AKAudioPlayer(file: (file))
@@ -229,6 +277,46 @@ extension ViewController: UITableViewDataSource {
             AudioKit.start()
             player.play()
         } catch { print("error readiung file audio") }
+        
+        
+        //        do {
+        //            let pp = try? AKAudioPlayer(file: self.recordingArray[audio], looping: false, lazyBuffering: false, completionHandler: nil)
+        //
+        //            AudioKit.disconnectAllInputs()
+        //
+        //            var mMixer: AKMixer!
+        //            var mBooster: AKBooster!
+        //            var moLadder: AKMoogLadder!
+        //            var maMixer: AKMixer!
+        //            let micc = AKMicrophone()
+        //
+        //            mMixer = AKMixer(micc)
+        //            mBooster = AKBooster(mMixer)
+        //
+        //            // Will set the level of microphone monitoring
+        //            mBooster.gain = 0
+        //            moLadder = AKMoogLadder(pp)
+        //
+        //            maMixer = AKMixer(moLadder, mBooster)
+        //
+        //            AudioKit.output = maMixer
+        //            AudioKit.start()
+        //
+        //            pp?.start()
+        //            pp?.play()
+        //        } catch { print("pp file error") }
+        
+        //        self.initialSetup()
+        //        do {
+        //            let p = try? AKAudioPlayer(file: self.recordingArray[audio])
+        //            p?.start()
+        //            p?.play()
+        //        } catch { print("Audio file") }
+        //
+        //        recorder = try? AKNodeRecorder(node: micMixer)
+        //        if let file = recorder.audioFile {
+        //            player = try? AKAudioPlayer(file: file)
+        //        }
     }
 }
 
@@ -237,7 +325,7 @@ extension UISegmentedControl {
         setBackgroundImage(imageWithColor(color: backgroundColor!), for: .normal, barMetrics: .default)
         setBackgroundImage(imageWithColor(color: backgroundColor!), for: .selected, barMetrics: .default)
         setDividerImage(imageWithColor(color: UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-//        self.tintColor = UIColor.black
+        //        self.tintColor = UIColor.black
     }
     
     // create a 1x1 image with this color
@@ -252,3 +340,4 @@ extension UISegmentedControl {
         return image!
     }
 }
+
